@@ -1,222 +1,174 @@
-# Ziply — URL Shortener v2
+# 🚀 Ziply — Smart URL Shortener & Analytics Platform
 
-A fast, clean URL shortener with click analytics and a full dashboard UI.
-Built with **FastAPI** + **SQLite** on the backend and **vanilla HTML/CSS/JS** on the frontend.
+<p align="center">
+  <strong>Shorten links. Track clicks. Share smarter.</strong>
+</p>
+
+<p align="center">
+  A lightweight, user-friendly URL shortening platform built with FastAPI, Python, and SQLite.
+</p>
+
+<p align="center">
+  🌐 **Live Demo:** https://ziply-url-shortner.onrender.com
+</p>
 
 ---
 
-## Features
+## 📌 About Ziply
 
-| Feature | Status |
+**Ziply** is a smart URL shortener that transforms long, complicated URLs into short, shareable links. It provides a simple dashboard to manage links, generate QR codes, track click activity, and organize multiple URLs efficiently.
+
+Built with Python and FastAPI, Ziply combines a clean web interface with a lightweight SQLite database to make link management straightforward and accessible.
+
+🔗 **Try Ziply now:** [Open Live Application](https://ziply-url-shortner.onrender.com)
+
+## ✨ Key Features
+
+- 🔗 **URL Shortening** — Convert long URLs into compact, shareable links.
+- 🎯 **Custom Aliases** — Create memorable short links using custom names.
+- 📊 **Click Analytics** — Track click activity for your shortened URLs.
+- 📱 **QR Code Generation** — Generate QR codes for convenient sharing and scanning.
+- ⏳ **Link Expiration** — Set expiry options for temporary links.
+- 📂 **Bulk URL Shortening** — Process multiple URLs through CSV upload.
+- 🗂️ **Link Management** — View, edit, and delete shortened links.
+- ⚡ **Fast Redirection** — Redirect visitors from short URLs to their original destinations.
+- 💾 **SQLite Database** — Store URL records and related application data.
+- ☁️ **Cloud Deployment** — Access the application online through Render.
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
 |---|---|
-| URL shortening (6-char auto code) | ✅ |
-| Custom alias (e.g. `/my-brand`) | ✅ |
-| Optional expiry (days) | ✅ |
-| Click tracking on every redirect | ✅ |
-| Dashboard summary (links + clicks) | ✅ |
-| My Links table with search | ✅ |
-| Copy / Edit / Delete actions | ✅ |
-| Analytics page (chart + recent visits) | ✅ |
-| QR code per link | ✅ |
-| Dark mode toggle | ✅ |
-| Expired link → 410 Gone | ✅ |
-| 404 for unknown codes | ✅ |
-| Authentication (JWT) | 🔜 Phase 4 |
-| Bulk CSV shortening | 🔜 Phase 3 |
+| Python | Core application logic |
+| FastAPI | Backend API and web framework |
+| SQLite | Database for URL records and related data |
+| HTML5 | Web page structure |
+| CSS3 | Styling and responsive interface |
+| JavaScript | Frontend interactions |
+| QRCode | QR code generation |
+| Uvicorn | ASGI server |
+| Render | Cloud deployment |
+| Git & GitHub | Version control and source code hosting |
 
----
+## 🔄 How It Works
 
-## Quick Start
+1. **Enter a URL:** Paste the original long URL into Ziply.
+2. **Customize your link:** Optionally choose an alias or expiry setting.
+3. **Generate:** Ziply creates a short link.
+4. **Share:** Copy the link or share its QR code.
+5. **Track:** Review available click analytics from the dashboard.
+6. **Manage:** Edit or delete links as needed.
 
-### 1. Clone / navigate to the project
+## 🚀 Live Deployment
+
+**Live Application:** [https://ziply-url-shortner.onrender.com](https://ziply-url-shortner.onrender.com)
+
+The application is deployed on Render and can be accessed through a web browser without running the project locally.
+
+> **Note:** The application runs on Render's free instance, which may spin down after inactivity. The first request after inactivity can take longer. Persistent database storage must be configured separately to retain SQLite data reliably across restarts and deployments.
+
+## 💻 Run Locally
+
+### Prerequisites
+
+- Python 3.12 or compatible version
+- Git
+- A code editor such as Visual Studio Code
+
+### 1. Clone the repository
 
 ```bash
-cd "c:\Users\dines\OneDrive\Desktop\METRIC STREAM\ziply"
+git clone https://github.com/DineshRam0127/Ziply_URL_Shortner.git
 ```
 
-### 2. Install dependencies
+### 2. Open the project directory
+
+```bash
+cd Ziply_URL_Shortner
+```
+
+### 3. Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
+
+```powershell
+.venv\Scripts\activate
+```
+
+### 4. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Start the server
+### 5. Start the application
 
 ```bash
 uvicorn main:app --reload
 ```
 
-Open **http://localhost:8000** in your browser.
+### 6. Open Ziply
 
----
+Visit:
 
-## Project Structure
+http://127.0.0.1:8000
 
-```
-ziply/
-├── main.py               # FastAPI app entry point
-├── database.py           # SQLite init + connection helper
-├── models.py             # Pydantic request/response models
-├── shortener.py          # Core business logic
+The application should now be available locally.
+
+## 📁 Project Structure
+
+The following is a typical structure for this application. Your actual repository may contain additional files or folders.
+
+```text
+Ziply_URL_Shortner/
+├── main.py
 ├── requirements.txt
-├── ziply.db              # SQLite database (auto-created)
-│
-├── routes/
-│   ├── shorten.py        # POST /api/shorten
-│   ├── redirect.py       # GET /{code}  (307 / 410 / 404)
-│   └── links.py          # GET /api/links, DELETE, PATCH, analytics, QR
-│
-├── static/
-│   ├── index.html        # Dashboard SPA
-│   ├── analytics.html    # Analytics page
-│   ├── style.css         # Katomaran reference design
-│   ├── app.js            # Dashboard logic
-│   └── analytics.js      # Analytics page logic
-│
-└── tests/
-    └── test_shortener.py # 16 pytest tests (all passing)
+├── .python-version
+├── ziply.db
+├── README.md
+└── static/
+    ├── css/
+    ├── js/
+    └── images/
 ```
+
+## 🎯 Use Cases
+
+- Sharing long URLs in messages and presentations.
+- Creating QR codes for websites, events, and promotional materials.
+- Managing collections of shortened links.
+- Tracking engagement through click analytics.
+- Processing multiple links for projects or campaigns.
+
+## 🔮 Future Enhancements
+
+- Advanced analytics with charts and date-based filtering.
+- User-specific dashboards and link ownership.
+- Persistent cloud database integration.
+- Improved security and rate limiting.
+- Enhanced analytics exports and reporting.
+
+## 👨‍💻 Developer
+
+**Dinesh Ram R**
+
+B.Tech — Information Technology  
+Sri Eshwar College of Engineering
+
+- **GitHub:** [DineshRam0127](https://github.com/DineshRam0127)
+- **Project Repository:** [Ziply_URL_Shortner](https://github.com/DineshRam0127/Ziply_URL_Shortner)
+- **Live Demo:** [Ziply on Render](https://ziply-url-shortner.onrender.com)
 
 ---
 
-## API Reference
+<p align="center">
+  <strong>Built with Python, FastAPI, and a passion for solving everyday problems.</strong>
+</p>
 
-### Health
-```
-GET /api/health
-→ { "status": "ok" }
-```
-
-### Shorten a URL
-```
-POST /api/shorten
-Content-Type: application/json
-
-{
-  "url": "https://example.com/very/long/url",
-  "alias": "my-brand",        // optional, 1-30 alphanumeric chars
-  "expires_days": 30          // optional, positive integer
-}
-
-→ 201 {
-  "short_url": "http://localhost:8000/my-brand",
-  "code": "my-brand",
-  "original_url": "https://example.com/very/long/url",
-  "created_at": "2026-10-20 11:31:58",
-  "click_count": 0,
-  "expires_at": "2026-11-19T11:31:58Z",
-  "qr_url": "http://localhost:8000/api/links/my-brand/qr"
-}
-```
-
-**Errors:**
-- `422` — Invalid URL or alias format
-- `409` — Alias already taken
-
-### Redirect
-```
-GET /{code}
-→ 307  Redirect to original URL  (click recorded)
-→ 410  Link has expired
-→ 404  Code not found
-```
-
-### Dashboard Summary
-```
-GET /api/dashboard
-→ { "total_links": 7, "total_clicks": 12 }
-```
-
-### List Links
-```
-GET /api/links
-→ [{ "code", "original_url", "short_url", "click_count", "created_at", "expires_at", "qr_url" }, ...]
-```
-
-### Delete Link
-```
-DELETE /api/links/{code}
-→ 204 No Content
-→ 404 Not found
-```
-
-### Edit Link
-```
-PATCH /api/links/{code}
-{ "alias": "new-alias", "expires_days": 0 }
-→ 200 { "status": "updated" }
-→ 409 Alias taken
-→ 404 Not found
-```
-
-### Analytics
-```
-GET /api/links/{code}/analytics
-→ {
-    "code": "my-brand",
-    "original_url": "...",
-    "total_clicks": 5,
-    "last_visited": "2026-10-20T11:32:04Z",
-    "click_trends": [{ "timestamp": "...", "cumulative": 1 }, ...],
-    "recent_visits": [{ "visitor_number": 5, "visited_at": "..." }, ...]
-  }
-```
-
-### QR Code
-```
-GET /api/links/{code}/qr
-→ image/png
-```
-
----
-
-## Database Schema
-
-```sql
-CREATE TABLE urls (
-    code        TEXT PRIMARY KEY,
-    original    TEXT NOT NULL,
-    created_at  TEXT NOT NULL DEFAULT (datetime('now')),
-    alias       TEXT,               -- custom slug (nullable)
-    expires_at  TEXT,               -- ISO datetime or NULL
-    user_id     INTEGER             -- owner FK (Phase 4)
-);
-
-CREATE TABLE clicks (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    code        TEXT NOT NULL REFERENCES urls(code) ON DELETE CASCADE,
-    visited_at  TEXT NOT NULL DEFAULT (datetime('now'))
-);
-
-CREATE TABLE users (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    username      TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    created_at    TEXT NOT NULL DEFAULT (datetime('now'))
-);
-```
-
----
-
-## Running Tests
-
-```bash
-python -m pytest tests/ -v
-```
-
-Expected: **16 passed** in ~1-2 seconds.
-
----
-
-## Environment Variables
-
-| Variable | Default | Description |
-|---|---|---|
-| `DB_PATH` | `ziply.db` | Path to SQLite database file |
-
----
-
-## Roadmap
-
-- **Phase 3**: Bulk CSV shortening, link editing in table
-- **Phase 4**: JWT authentication, user registration/login, per-user link isolation
+<p align="center">
+  ⭐ If you find Ziply useful, consider starring the repository!
+</p>
