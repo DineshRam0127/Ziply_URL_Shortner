@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ziply — Fast URL shortener with click analytics. Shorten, track and analyze your links." />
+  <title>Ziply — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css?v=5" />
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <span class="brand-icon">⚡</span>
+          <span class="brand-wordmark">Ziply<span class="brand-dot">.</span></span>
+        </div>
+        <span class="brand-tagline">SHORTEN · TRACK · ANALYZE</span>
+      </div>
+      <div class="header-actions">
+        <button id="theme-toggle" class="btn-theme" aria-label="Toggle dark mode">
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Dark</span>
+        </button>
+        <button id="logout-btn" class="btn-logout" aria-label="Logout">
+          <span>⏎</span> Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main content ── -->
+  <main class="page-content">
+
+    <!-- ── My Dashboard card ── -->
+    <section class="card dashboard-card" aria-label="Dashboard summary">
+      <div class="dashboard-left">
+        <div class="dashboard-icon-wrap">
+          <span class="dashboard-icon">⚡</span>
+        </div>
+        <div>
+          <h1 class="dashboard-title">My Dashboard</h1>
+          <p class="dashboard-sub">Shorten · Track · Analyze</p>
+        </div>
+      </div>
+      <div class="dashboard-stats">
+        <div class="stat-tile" id="stat-links">
+          <span class="stat-num" id="total-links">—</span>
+          <span class="stat-label">LINKS</span>
+        </div>
+        <div class="stat-tile" id="stat-clicks">
+          <span class="stat-num" id="total-clicks">—</span>
+          <span class="stat-label">CLICKS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Create Short URL card ── -->
+    <section class="card create-card" aria-label="Create short URL">
+      <div class="card-header">
+        <span class="card-header-icon">🔗</span>
+        <h2 class="card-title">Create Short URL</h2>
+      </div>
+
+      <form id="shorten-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="url-input">DESTINATION URL</label>
+          <input
+            id="url-input"
+            class="form-input"
+            type="url"
+            placeholder="https://your-long-url.com/goes/here"
+            autocomplete="off"
+            spellcheck="false"
+            aria-required="true"
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-alias">
+            <label class="form-label" for="alias-input">CUSTOM ALIAS <span class="label-opt">(optional)</span></label>
+            <div class="alias-input-wrap">
+              <span class="alias-prefix">ziply.io/</span>
+              <input
+                id="alias-input"
+                class="form-input alias-input"
+                type="text"
+                placeholder="my-brand"
+                maxlength="30"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <div class="form-group form-group-expiry">
+            <label class="form-label" for="expiry-input">EXPIRES AFTER <span class="label-opt">(optional)</span></label>
+            <div class="expiry-input-wrap">
+              <input
+                id="expiry-input"
+                class="form-input expiry-input"
+                type="number"
+                placeholder="30"
+                min="1"
+                max="3650"
+              />
+              <span class="expiry-suffix">days</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error / success toasts inside form -->
+        <div id="form-error" class="form-alert form-alert-error" role="alert" hidden>
+          <span class="alert-x">✕</span>
+          <span id="form-error-msg"></span>
+        </div>
+        <div id="form-success" class="form-alert form-alert-success" role="alert" hidden>
+          <span>✓</span>
+          <span id="form-success-msg"></span>
+        </div>
+
+        <button id="shorten-btn" class="btn btn-primary" type="submit">
+          <span class="btn-plus">+</span>
+          <span class="btn-text">Shorten URL</span>
+          <span class="btn-spinner" hidden></span>
+        </button>
+      </form>
+    </section>
+
+    <!-- ── My Links table card ── -->
+    <section class="card links-card" aria-label="My links">
+      <div class="card-header links-header">
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+          <span class="card-header-icon">📊</span>
+          <h2 class="card-title">My Links</h2>
+        </div>
+        <div class="links-header-right">
+          <input id="search-input" class="search-input" type="search" placeholder="Search links…" aria-label="Search links" />
+          <span id="link-count" class="link-count-badge">0 links</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="links-table" id="links-table">
+          <thead>
+            <tr>
+              <th>ORIGINAL URL</th>
+              <th>SHORT LINK</th>
+              <th>CLICKS</th>
+              <th>CREATED</th>
+              <th>QR CODE</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="links-tbody">
+            <!-- Rows injected by app.js -->
+          </tbody>
+        </table>
+        <div id="links-empty" class="links-empty" hidden>
+          <p>No links yet. Create your first short URL above!</p>
+        </div>
+        <div id="links-loading" class="links-loading">Loading…</div>
+      </div>
+    </section>
+
+    <!-- ── Bulk Shorten card (Phase 3) ── -->
+    <section class="card bulk-card" aria-label="Bulk shorten URLs">
+      <div class="card-header">
+        <span class="card-header-icon">📂</span>
+        <h2 class="card-title">Bulk Shorten</h2>
+        <span class="bulk-badge">CSV Upload</span>
+      </div>
+      <p class="bulk-desc">Upload a CSV file (up to 500 rows) to shorten multiple URLs at once.<br />
+        <span class="bulk-format">Format: <code>url</code>, <code>alias</code> (opt), <code>expires_days</code> (opt) — one per line.</span>
+      </p>
+
+      <div class="bulk-upload-area" id="bulk-drop-zone">
+        <div class="bulk-upload-icon">📤</div>
+        <div class="bulk-upload-text">Drag &amp; drop your CSV here, or</div>
+        <label for="bulk-file-input" class="btn btn-ghost btn-sm bulk-browse-btn">Browse File</label>
+        <input id="bulk-file-input" type="file" accept=".csv,text/csv" hidden />
+        <div id="bulk-file-name" class="bulk-file-name" hidden></div>
+      </div>
+
+      <div class="bulk-actions">
+        <button id="bulk-upload-btn" class="btn btn-primary" disabled>
+          <span class="btn-plus">↑</span>
+          <span class="btn-text">Upload &amp; Shorten</span>
+          <span class="btn-spinner" hidden></span>
+        </button>
+        <button id="bulk-clear-btn" class="btn btn-ghost" hidden>✕ Clear</button>
+      </div>
+
+      <!-- Bulk progress -->
+      <div id="bulk-progress" class="bulk-progress" hidden>
+        <div class="bulk-progress-bar" id="bulk-progress-bar" style="width:0%"></div>
+      </div>
+
+      <!-- Bulk results table -->
+      <div id="bulk-results" class="bulk-results" hidden>
+        <div class="bulk-results-header">
+          <span id="bulk-success-count" class="bulk-success-count"></span>
+          <span id="bulk-error-count"   class="bulk-error-count"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="links-table bulk-table" id="bulk-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ORIGINAL URL</th>
+                <th>SHORT LINK</th>
+                <th>STATUS</th>
+                <th>COPY</th>
+              </tr>
+            </thead>
+            <tbody id="bulk-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Edit Modal ── -->
+  <div id="edit-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Edit link" hidden>
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Link</h3>
+        <button id="modal-close" class="modal-close" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="edit-code" />
+        <div class="form-group">
+          <label class="form-label" for="edit-alias">CUSTOM ALIAS</label>
+          <div class="alias-input-wrap">
+            <span class="alias-prefix">ziply.io/</span>
+            <input id="edit-alias" class="form-input alias-input" type="text" placeholder="my-brand" maxlength="30" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-expiry">EXPIRES AFTER (days, 0 = never)</label>
+          <div class="expiry-input-wrap">
+            <input id="edit-expiry" class="form-input expiry-input" type="number" placeholder="0" min="0" max="3650" />
+            <span class="expiry-suffix">days</span>
+          </div>
+        </div>
+        <div id="edit-error" class="form-alert form-alert-error" role="alert" hidden>
+          <span class="alert-x">✕</span>
+          <span id="edit-error-msg"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-cancel" class="btn btn-ghost">Cancel</button>
+        <button id="modal-save" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Global toast ── -->
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="/static/app.js?v=5" defer></script>
+</body>
+</html>

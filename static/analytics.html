@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ziply Analytics — Click trends and recent visits for your shortened link." />
+  <title>Ziply — Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css?v=5" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <span class="brand-icon">⚡</span>
+          <span class="brand-wordmark">Ziply<span class="brand-dot">.</span></span>
+        </div>
+        <span class="brand-tagline">SHORTEN · TRACK · ANALYZE</span>
+      </div>
+      <div class="header-actions">
+        <button id="theme-toggle" class="btn-theme" aria-label="Toggle dark mode">
+          <span class="theme-icon">🌙</span>
+          <span class="theme-label">Dark</span>
+        </button>
+        <button id="logout-btn" class="btn-logout" aria-label="Logout">
+          <span>⏎</span> Logout
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main content ── -->
+  <main class="page-content">
+
+    <!-- ── Page heading ── -->
+    <div class="analytics-page-header">
+      <div class="analytics-page-left">
+        <div class="analytics-badge">
+          <span class="analytics-badge-dot">●</span> ZIPLY ANALYTICS
+        </div>
+        <h1 class="analytics-title">Analytics Dashboard</h1>
+        <p class="analytics-sub">Shorten • Track • Analyze</p>
+      </div>
+      <a href="/" class="btn btn-ghost back-btn">‹ Back to Dashboard</a>
+    </div>
+
+    <!-- ── Summary cards ── -->
+    <div class="analytics-summary-grid" id="analytics-summary">
+      <div class="card analytics-stat-card">
+        <div class="analytics-stat-header">
+          <span class="analytics-stat-label">TOTAL CLICKS</span>
+          <span class="analytics-stat-emoji">🚀</span>
+        </div>
+        <div class="analytics-stat-value orange" id="stat-total-clicks">—</div>
+        <div class="analytics-stat-sub">Total visitors tracked</div>
+      </div>
+      <div class="card analytics-stat-card">
+        <div class="analytics-stat-header">
+          <span class="analytics-stat-label">SHORT CODE</span>
+          <span class="analytics-stat-emoji">🔗</span>
+        </div>
+        <div class="analytics-stat-value orange" id="stat-short-code">—</div>
+        <div class="analytics-stat-sub">Unique URL identifier</div>
+      </div>
+      <div class="card analytics-stat-card">
+        <div class="analytics-stat-header">
+          <span class="analytics-stat-label">LAST VISITED</span>
+          <span class="analytics-stat-emoji">⏰</span>
+        </div>
+        <div class="analytics-stat-value navy" id="stat-last-visited">—</div>
+        <div class="analytics-stat-sub" id="stat-last-sub">Latest activity detected</div>
+      </div>
+    </div>
+
+    <!-- ── Click Trends chart ── -->
+    <section class="card chart-card" aria-label="Click trends chart">
+      <div class="chart-card-header">
+        <div>
+          <h2 class="card-title">Click Trends</h2>
+          <p class="chart-sub">Cumulative click growth over time</p>
+        </div>
+        <span class="live-badge"><span class="live-dot">●</span> Live Data</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="trends-chart" aria-label="Click trends chart"></canvas>
+        <div id="chart-empty" class="chart-empty" hidden>No click data yet.</div>
+      </div>
+    </section>
+
+    <!-- ── Recent Visits ── -->
+    <section class="card visits-card" aria-label="Recent visits">
+      <div class="visits-header">
+        <div>
+          <h2 class="card-title">Recent Visits</h2>
+          <p class="chart-sub">Latest visitor activity log</p>
+        </div>
+        <span id="visit-count-badge" class="visit-count-badge">0 Visits</span>
+      </div>
+      <div id="visits-list" class="visits-list">
+        <!-- Injected by analytics.js -->
+      </div>
+      <div id="visits-empty" class="chart-empty" hidden>No visits recorded yet.</div>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="/static/analytics.js?v=5" defer></script>
+</body>
+</html>
