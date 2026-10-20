@@ -59,7 +59,11 @@ Built with Python and FastAPI, Ziply combines a clean web interface with a light
 5. **Track:** Review available click analytics from the dashboard.
 6. **Manage:** Edit or delete links as needed.
 
-![alt text](image.png)
+## 🚀 Live Deployment
+
+**Live Application:** [https://ziply-url-shortner.onrender.com](https://ziply-url-shortner.onrender.com)
+
+The application is deployed on Render and can be accessed through a web browser without running the project locally.
 
 > **Note:** The application runs on Render's free instance, which may spin down after inactivity. The first request after inactivity can take longer. Persistent database storage must be configured separately to retain SQLite data reliably across restarts and deployments.
 
