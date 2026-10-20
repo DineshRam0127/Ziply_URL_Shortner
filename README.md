@@ -59,6 +59,7 @@ Built with Python and FastAPI, Ziply combines a clean web interface with a light
 5. **Track:** Review available click analytics from the dashboard.
 6. **Manage:** Edit or delete links as needed.
 
+![alt text](<Ziply URL Shortener Workflow Diagram.png>)
 ## 🚀 Live Deployment
 
 **Live Application:** [https://ziply-url-shortner.onrender.com](https://ziply-url-shortner.onrender.com)
